@@ -39,11 +39,11 @@ jobs:
     - stage: test
       jdk: openjdk8
       name: test
-      script: cd $TRAVIS_BUILD_DIR && ./mvnw clean compile java:exec
+      script: cd $TRAVIS_BUILD_DIR && ./mvnw clean compile exec:java
     - stage: test
       jdk: openjdk11
       name: test (openjdk11)
-      script: cd $TRAVIS_BUILD_DIR && ./mvnw clean compile java:exec
+      script: cd $TRAVIS_BUILD_DIR && ./mvnw clean compile exec:java
     - stage: test
       jdk: openjdk8
       name: updates
