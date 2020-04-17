@@ -11,6 +11,7 @@
 
   <modules>
     <module>plain-java-route</module>
+    <module>camel-java-dsl</module>
   </modules>
 
   <properties>
@@ -23,7 +24,6 @@
     <camel.version>2.24.3</camel.version>
     <lombok.version>1.18.12</lombok.version>
     <camel-jcifs.version>2.24.3</camel-jcifs.version>
-    <javax.activation.version>1.2.0</javax.activation.version>
 
     <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
@@ -64,6 +64,12 @@
       <optional>true</optional>
       <scope>provided</scope>
     </dependency>
+
+    <dependency>
+      <groupId>javax.activation</groupId>
+      <artifactId>javax.activation-api</artifactId>
+      <version>1.2.0</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -93,7 +99,7 @@
         <version>${exec-maven-plugin.version}</version>
         <configuration>
           <includePluginDependencies>false</includePluginDependencies>
-          <!--<mainClass>daggerok.Main</mainClass>--><!-- specify project exec.mainClass -->
+          <!--<mainClass>daggerok.MainApp</mainClass>--><!-- specify project exec.mainClass -->
         </configuration>
       </plugin>
     </plugins>
@@ -107,9 +113,9 @@
       </activation>
       <dependencies>
         <dependency>
-          <groupId>com.sun.activation</groupId>
-          <artifactId>javax.activation</artifactId>
-          <version>${javax.activation.version}</version>
+          <groupId>javax.activation</groupId>
+          <artifactId>javax.activation-api</artifactId>
+          <version>1.2.0</version>
         </dependency>
       </dependencies>
       <build>

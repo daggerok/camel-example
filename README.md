@@ -5,7 +5,7 @@
 build and run:
 
 ```bash
-./mvnw -f plain-java-route clean package exec:java -DmainClass=daggerok.Main
+./mvnw -f plain-java-route clean package exec:java -DmainClass=daggerok.MainApp
 ```
 
 ## versions update
@@ -16,4 +16,6 @@ build and run:
 
 ## resources
 
-* http://camel.apache.org/
+* https://camel.apache.org/components/latest/eips/message.html
+* https://camel.apache.org/
+* https://camel.apache.org/manual/latest/creating-a-new-spring-based-camel-route.html
