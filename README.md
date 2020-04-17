@@ -19,3 +19,4 @@ build and run:
 * https://camel.apache.org/components/latest/eips/message.html
 * https://camel.apache.org/
 * https://camel.apache.org/manual/latest/creating-a-new-spring-based-camel-route.html
+* https://habr.com/ru/company/redhatrussia/blog/352188/
