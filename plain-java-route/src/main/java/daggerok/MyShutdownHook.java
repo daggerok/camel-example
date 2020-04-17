@@ -1,10 +1,10 @@
-package com.github.daggerok.infrastructure;
+package daggerok;
 
 import io.vavr.control.Try;
 import org.apache.camel.main.MainListenerSupport;
 import org.apache.camel.main.MainSupport;
 
-public class ShutdownHook extends MainListenerSupport {
+public class MyShutdownHook extends MainListenerSupport {
 
   @Override
   public void afterStart(MainSupport main) {

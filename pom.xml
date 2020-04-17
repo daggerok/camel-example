@@ -1,39 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.dsaggerok</groupId>
-  <artifactId>camel-smb-example</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <artifactId>camel-examples</artifactId>
+  <version>1.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
-  <!--
-    - -add-modules java.activation
-      mvn clean package exec:java -DmainClass=com.github.daggerok.App
-
-    updates:
-      mvn versions:display-property-updates
-  -->
+  <modules>
+    <module>plain-java-route</module>
+  </modules>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <encoding>UTF-8</encoding>
+    <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
 
-    <java.version>1.8</java.version>
-    <vavr.version>0.10.0</vavr.version>
-    <camel.version>2.23.1</camel.version>
-    <camel-jcifs.version>2.23.1</camel-jcifs.version>
+    <java.version>11</java.version>
+    <vavr.version>0.10.2</vavr.version>
+    <camel.version>2.24.3</camel.version>
+    <lombok.version>1.18.12</lombok.version>
+    <camel-jcifs.version>2.24.3</camel-jcifs.version>
     <javax.activation.version>1.2.0</javax.activation.version>
 
+    <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
-    <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
   </properties>
 
   <dependencyManagement>
     <dependencies>
-      <!-- Camel BOM -->
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-parent</artifactId>
@@ -41,50 +39,30 @@
         <scope>import</scope>
         <type>pom</type>
       </dependency>
+
+      <dependency>
+        <groupId>org.apache-extras.camel-extra</groupId>
+        <artifactId>camel-jcifs</artifactId>
+        <version>${camel-jcifs.version}</version>
+        <type>jar</type>
+      </dependency>
+
+      <dependency>
+        <groupId>io.vavr</groupId>
+        <artifactId>vavr</artifactId>
+        <version>${vavr.version}</version>
+        <type>jar</type>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
   <dependencies>
-    <!-- https://mvnrepository.com/artifact/org.apache-extras.camel-extra/camel-jcifs -->
     <dependency>
-      <groupId>org.apache-extras.camel-extra</groupId>
-      <artifactId>camel-jcifs</artifactId>
-      <version>${camel-jcifs.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.camel</groupId>
-      <artifactId>camel-core</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>io.vavr</groupId>
-      <artifactId>vavr</artifactId>
-      <version>${vavr.version}</version>
-    </dependency>
-
-    <!-- logging -->
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-api</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-slf4j-impl</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-
-    <!-- testing -->
-    <dependency>
-      <groupId>org.apache.camel</groupId>
-      <artifactId>camel-test</artifactId>
-      <scope>test</scope>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+      <optional>true</optional>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 
@@ -101,24 +79,21 @@
           <target>${java.version}</target>
         </configuration>
       </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
         <version>${maven-resources-plugin.version}</version>
         <configuration>
-          <encoding>UTF-8</encoding>
+          <encoding>${encoding}</encoding>
         </configuration>
       </plugin>
-
-      <!-- Allows the example to be run via 'mvn compile exec:java' -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <version>${exec-maven-plugin.version}</version>
         <configuration>
-          <mainClass>com.github.daggerok.App</mainClass>
           <includePluginDependencies>false</includePluginDependencies>
+          <!--<mainClass>daggerok.Main</mainClass>--><!-- specify project exec.mainClass -->
         </configuration>
       </plugin>
     </plugins>
@@ -126,12 +101,10 @@
 
   <profiles>
     <profile>
-      <id>non-jdk8</id>
-
+      <id>jdk9+</id>
       <activation>
-        <jdk>!1.8</jdk>
+        <jdk>[9,)</jdk>
       </activation>
-
       <dependencies>
         <dependency>
           <groupId>com.sun.activation</groupId>
@@ -139,6 +112,22 @@
           <version>${javax.activation.version}</version>
         </dependency>
       </dependencies>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <version>${maven-compiler-plugin.version}</version>
+              <configuration>
+                <release>${java.version}</release>
+                <source>${java.version}</source>
+                <target>${java.version}</target>
+              </configuration>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
     </profile>
   </profiles>
 

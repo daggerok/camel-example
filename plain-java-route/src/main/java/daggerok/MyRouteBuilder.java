@@ -1,12 +1,11 @@
-package com.github.daggerok.app;
+package daggerok;
 
-import io.vavr.control.Try;
 import org.apache.camel.builder.RouteBuilder;
 
 /**
  * A Camel Java DSL Router
  */
-public class AppRouteBuilder extends RouteBuilder {
+public class MyRouteBuilder extends RouteBuilder {
 
     /**
      * Let's configure the Camel routing rules using Java code...
@@ -16,14 +15,14 @@ public class AppRouteBuilder extends RouteBuilder {
         // here is a sample which processes the input files
         // (leaving them in place - see the 'noop' flag)
         // then performs content based routing on the message using XPath
-        from("file:src/data?noop=true")
+        from("file:./plain-java-route/src/main/resources/data?noop=true")
             .choice()
                 .when(xpath("/person/city = 'London'"))
                     .log("UK message")
-                    .to("file:target/messages/uk")
+                    .to("file:./target/messages/uk")
                 .otherwise()
                     .log("Other message")
-                    .to("file:target/messages/others");
+                    .to("file:./target/messages/others");
 
         // from("smb://maksim.kostromin@i.sigmaukraine.com/store/Training-and-development/Seminars/Architectural-meetup?password=secret")
         //     .to("file://target/test-reports");

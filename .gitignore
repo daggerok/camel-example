@@ -1,15 +1,33 @@
-.DS_Store
-.gradle/
-target/
-/build/
-/out/
-**/out/**
-**/.idea/**
-/.idea/
+### IntelliJ IDEA ###
+.idea
+!.idea/
+.idea/*
+!.idea/runConfigurations/
+*.iws
 *.iml
 *.ipr
-*.iws
 *.log*
-node_modules/
-.vuepress/dist/
-.cache/
+.gradle/
+target/
+out/
+src/test/java/daggerok/fuckit
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+### VS Code ###
+.vscode/
